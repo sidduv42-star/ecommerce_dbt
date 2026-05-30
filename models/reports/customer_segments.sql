@@ -19,6 +19,7 @@ customer_orders as(
 ),
 final as(
     select
+    c.customer_id,
     c.full_name,
     c.segment,
     c.acquisition_channel,

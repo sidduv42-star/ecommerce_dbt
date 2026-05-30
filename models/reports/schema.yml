@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: monthly_revenue
+    description: "Monthly revenue trends with MoM growth"
+    columns:
+      - name: month
+        description: "Primary key — first day of each month"
+        tests:
+          - unique
+          - not_null
+
+  - name: customer_segments
+    description: "Customer RFM segmentation and lifetime value"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: recency_segment
+        tests:
+          - accepted_values:
+              values: ['Active', 'At Risk', 'Lapsing', 'Churned']
+      - name: value_segment
+        tests:
+          - accepted_values:
+              values: ['High Value', 'Mid Value', 'Low Value']
+
+  - name: top_locations
+    description: "Location performance ranked by revenue"
+    columns:
+      - name: location_key
+        tests:
+          - unique
+          - not_null

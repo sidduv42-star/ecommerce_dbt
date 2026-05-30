@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned and typed customers"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+          - not_null
+      - name: registration_date
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Cleaned and typed orders"
+    columns:
+      - name: order_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Delivered', 'Shipped', 'Pending', 'Cancelled', 'Returned', 'Confirmed']
+
+
+  - name: stg_locations
+    description: "Cleaned and typed locations"
+    columns:
+      - name: location_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: city
+        tests:
+          - not_null
